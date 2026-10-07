@@ -1,404 +1,2037 @@
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>John Smythe | Britain • Evidence • Accountability</title>
+
+    <title>John Smythe | Investigate. Verify. Compare. Decide.</title>
+
+    <meta name="description"
+          content="John Smythe is an independent British evidence and accountability platform. Investigate. Verify. Compare. Decide.">
+
+    <meta name="theme-color" content="#050505">
 
     <style>
-        :root { --primary: #0f172a; --secondary: #1e293b; --text: #334155; --light-bg: #f8fafc; --border: #e2e8f0; --accent-red: #dc2626; --check-bg: #fef2f2; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: system-ui, -apple-system, sans-serif; color: var(--text); line-height: 1.6; background-color: #ffffff; }
-        header { background-color: var(--primary); color: white; padding: 2.5rem 1rem; text-align: center; border-bottom: 4px solid var(--accent-red); }
-        header h1 { font-family: Georgia, serif; font-size: 2.5rem; letter-spacing: 2px; margin-bottom: 0.5rem; }
-        header p { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 3px; color: #94a3b8; }
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --black: #050505;
+            --black-soft: #111214;
+            --black-card: #18191c;
+            --navy: #071d3d;
+            --navy-light: #10345f;
+            --red: #c8102e;
+            --red-dark: #a40d27;
+            --white: #ffffff;
+            --offwhite: #f4f5f7;
+            --grey: #68717e;
+            --border: #d9dde3;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--offwhite);
+            color: #172033;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .british-stripe {
+            height: 7px;
+            background: linear-gradient(
+                to right,
+                var(--navy) 0%,
+                var(--navy) 38%,
+                white 38%,
+                white 42%,
+                var(--red) 42%,
+                var(--red) 58%,
+                white 58%,
+                white 62%,
+                var(--navy) 62%,
+                var(--navy) 100%
+            );
+        }
+
+        /* HEADER */
+
+        header {
+            background: var(--black);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #282828;
+            box-shadow: 0 3px 16px rgba(0,0,0,.3);
+        }
+
+        .header-inner {
+            max-width: 1280px;
+            margin: auto;
+            padding: 15px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+        }
+
+        .brand {
+            text-decoration: none;
+            min-width: 230px;
+        }
+
+        .brand-name {
+            font-family: Georgia, "Times New Roman", serif;
+            font-weight: bold;
+            font-size: 27px;
+            letter-spacing: 2px;
+            line-height: 1;
+        }
+
+        .brand-tag {
+            color: #aeb5bf;
+            font-size: 9px;
+            letter-spacing: 1.7px;
+            margin-top: 7px;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 18px;
+        }
+
+        nav a {
+            color: #f3f3f3;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #ff9dad;
+        }
+
+        .nav-red {
+            background: var(--red);
+            padding: 8px 12px;
+            border-radius: 3px;
+        }
+
+        /* HERO */
+
+        .hero {
+            background:
+                radial-gradient(circle at 80% 30%, rgba(16,52,95,.38), transparent 34%),
+                linear-gradient(115deg, #000000 0%, #070707 54%, #071d3d 100%);
+            color: white;
+            min-height: 610px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            right: -180px;
+            top: -210px;
+            width: 600px;
+            height: 600px;
+            border: 95px solid rgba(255,255,255,.025);
+            transform: rotate(45deg);
+        }
+
+        .hero-inner {
+            width: 100%;
+            max-width: 1280px;
+            margin: auto;
+            padding: 90px 6%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-label {
+            display: inline-block;
+            border-left: 5px solid var(--red);
+            background: rgba(255,255,255,.05);
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(54px, 8vw, 96px);
+            line-height: .92;
+            letter-spacing: -2px;
+            margin: 0;
+        }
+
+        .hero h2 {
+            margin: 25px 0 0;
+            color: #e6e8ec;
+            font-weight: normal;
+            font-size: clamp(20px, 3vw, 29px);
+        }
+
+        .hero p {
+            max-width: 770px;
+            color: #bfc5cd;
+            font-size: 18px;
+            margin-top: 22px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .button {
+            display: inline-block;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            padding: 13px 20px;
+            border-radius: 3px;
+            transition: .2s;
+        }
+
+        .button-red {
+            background: var(--red);
+            color: white;
+        }
+
+        .button-red:hover {
+            background: var(--red-dark);
+        }
+
+        .button-dark {
+            background: var(--black);
+            color: white;
+        }
+
+        .button-outline {
+            border: 1px solid #777;
+            color: white;
+            background: transparent;
+        }
+
+        .button-outline:hover {
+            background: white;
+            color: black;
+        }
+
+        /* MOTTO */
+
+        .motto-strip {
+            background: var(--red);
+            color: white;
+            text-align: center;
+            padding: 18px 5%;
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-size: 14px;
+        }
+
+        /* GENERAL */
+
+        section {
+            padding: 78px 6%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .eyebrow {
+            color: var(--red);
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-family: Georgia, "Times New Roman", serif;
+            color: var(--black);
+            font-size: clamp(34px, 5vw, 49px);
+            line-height: 1.08;
+            margin: 0 0 15px;
+        }
+
+        .section-intro {
+            max-width: 820px;
+            color: var(--grey);
+            font-size: 17px;
+            margin: 0 0 38px;
+        }
+
+        /* COMPARISON */
+
+        #compare {
+            background: white;
+        }
+
+        .comparison-feature {
+            background: var(--black);
+            color: white;
+            overflow: hidden;
+            border-radius: 6px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.15);
+        }
+
+        .comparison-top {
+            padding: 38px;
+            text-align: center;
+            border-bottom: 1px solid #292929;
+        }
+
+        .comparison-top .live {
+            display: inline-block;
+            color: white;
+            background: var(--red);
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            padding: 5px 9px;
+            margin-bottom: 14px;
+        }
+
+        .comparison-top h3 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(31px, 5vw, 49px);
+            margin: 0;
+        }
+
+        .versus {
+            color: var(--red);
+            margin: 0 8px;
+        }
+
+        .comparison-top p {
+            color: #aeb5bd;
+            max-width: 700px;
+            margin: 14px auto 0;
+        }
+
+        .compare-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .party {
+            padding: 36px;
+        }
+
+        .party:first-child {
+            border-right: 1px solid #303030;
+        }
+
+        .party-label {
+            color: #8e98a5;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .party h4 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 27px;
+            margin: 5px 0 12px;
+        }
+
+        .party p {
+            color: #b7bdc5;
+            font-size: 14px;
+        }
+
+        .compare-topics {
+            background: #101113;
+            border-top: 1px solid #292929;
+            padding: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 9px;
+        }
+
+        .topic-pill {
+            border: 1px solid #3d4045;
+            color: #d5d8dd;
+            padding: 7px 11px;
+            font-size: 12px;
+        }
+
+        .comparison-action {
+            padding: 26px;
+            text-align: center;
+            background: var(--navy);
+        }
+
+        .comparison-note {
+            font-size: 12px;
+            color: #aeb9c8;
+            max-width: 760px;
+            margin: 14px auto 0;
+        }
+
+        /* ACCOUNTABILITY */
+
+        #accountability {
+            background: #eceff3;
+        }
+
+        .accountability-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .account-card {
+            background: white;
+            border-top: 5px solid var(--black);
+            padding: 26px;
+            box-shadow: 0 2px 9px rgba(0,0,0,.06);
+        }
+
+        .account-card.red {
+            border-top-color: var(--red);
+        }
+
+        .account-card.navy {
+            border-top-color: var(--navy);
+        }
+
+        .account-card h3 {
+            font-family: Georgia, "Times New Roman", serif;
+            color: var(--black);
+            font-size: 22px;
+            margin: 0 0 10px;
+        }
+
+        .account-card p {
+            color: var(--grey);
+            font-size: 14px;
+        }
+
+        .status {
+            display: inline-block;
+            background: #eceef1;
+            color: #5e6670;
+            padding: 5px 8px;
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* METHOD */
+
+        #method {
+            background: var(--black);
+            color: white;
+        }
+
+        #method .section-title {
+            color: white;
+        }
+
+        #method .section-intro {
+            color: #adb3bc;
+        }
+
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .method-card {
+            background: var(--black-card);
+            border: 1px solid #303236;
+            padding: 26px;
+        }
+
+        .method-number {
+            color: var(--red);
+            font-size: 29px;
+            font-family: Georgia, "Times New Roman", serif;
+        }
+
+        .method-card h3 {
+            margin: 5px 0 9px;
+        }
+
+        .method-card p {
+            color: #aeb4bd;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        /* ISSUES */
+
+        #issues {
+            background: white;
+        }
+
+        .issue-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .issue-card {
+            border: 1px solid var(--border);
+            padding: 25px;
+            transition: .2s;
+            background: white;
+        }
+
+        .issue-card:hover {
+            transform: translateY(-3px);
+            border-color: #9da3ab;
+            box-shadow: 0 7px 18px rgba(0,0,0,.07);
+        }
+
+        .issue-number {
+            color: var(--red);
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .issue-card h3 {
+            font-family: Georgia, "Times New Roman", serif;
+            color: var(--black);
+            margin: 6px 0;
+            font-size: 21px;
+        }
+
+        .issue-card p {
+            color: var(--grey);
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+
+        /* EVIDENCE */
+
+        #evidence {
+            background:
+                linear-gradient(120deg, #071d3d 0%, #06172f 50%, #050505 100%);
+            color: white;
+        }
+
+        #evidence .section-title {
+            color: white;
+        }
+
+        #evidence .section-intro {
+            color: #bbc4d0;
+        }
+
+        .evidence-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+        }
+
+        .evidence-panel {
+            border: 1px solid rgba(255,255,255,.16);
+            background: rgba(255,255,255,.04);
+            padding: 31px;
+        }
+
+        .evidence-panel h3 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 25px;
+            margin-top: 0;
+        }
+
+        .evidence-panel p {
+            color: #bbc4d0;
+        }
+
+        .evidence-rules {
+            padding-left: 20px;
+            color: #d2d8e0;
+        }
+
+        .evidence-rules li {
+            margin-bottom: 8px;
+        }
+
+        .evidence-form label {
+            display: block;
+            margin: 13px 0 5px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .evidence-form input,
+        .evidence-form select,
+        .evidence-form textarea {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #46546a;
+            background: #071427;
+            color: white;
+            font-family: inherit;
+            border-radius: 2px;
+        }
+
+        .evidence-form textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .form-note {
+            color: #aeb8c6;
+            font-size: 12px;
+            margin-top: 12px;
+        }
+
+        #evidence-message {
+            margin-top: 12px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* VERIFICATION */
+
+        .verification {
+            background: white;
+            padding: 0 6% 70px;
+        }
+
+        .verification-inner {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border: 1px solid var(--border);
+        }
+
+        .verify-step {
+            padding: 24px;
+            border-right: 1px solid var(--border);
+        }
+
+        .verify-step:last-child {
+            border-right: none;
+        }
+
+        .verify-step strong {
+            color: var(--black);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .verify-step span {
+            color: var(--grey);
+            font-size: 13px;
+        }
+
+        /* DISCUSSION */
+
+        #discussion {
+            background: #eceff3;
+        }
+
+        .discussion-box {
+            background: white;
+            border: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+        }
+
+        .discussion-main {
+            padding: 35px;
+        }
+
+        .discussion-main h3 {
+            font-family: Georgia, "Times New Roman", serif;
+            color: var(--black);
+            font-size: 28px;
+            margin-top: 0;
+        }
+
+        .discussion-main p {
+            color: var(--grey);
+        }
+
+        .discussion-side {
+            padding: 35px;
+            background: var(--black);
+            color: white;
+        }
+
+        .discussion-side h3 {
+            margin-top: 0;
+        }
+
+        .discussion-side p {
+            color: #adb3bc;
+            font-size: 14px;
+        }
+
+        /* ARCHIVE */
+
+        #archive {
+            background: white;
+        }
+
+        .archive-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .archive-card {
+            border: 1px solid var(--border);
+            border-left: 5px solid var(--black);
+            padding: 27px;
+        }
+
+        .archive-card:nth-child(2) {
+            border-left-color: var(--red);
+        }
+
+        .archive-card:nth-child(3) {
+            border-left-color: var(--navy);
+        }
+
+        .archive-card h3 {
+            font-family: Georgia, "Times New Roman", serif;
+            color: var(--black);
+            font-size: 22px;
+            margin: 9px 0;
+        }
+
+        .archive-card p {
+            color: var(--grey);
+            font-size: 14px;
+        }
+
+        /* ABOUT */
+
+        #about {
+            background: var(--black);
+            color: white;
+        }
+
+        #about .section-title {
+            color: white;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: .8fr 1.2fr;
+            gap: 50px;
+        }
+
+        .about-quote {
+            border-left: 6px solid var(--red);
+            padding-left: 23px;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 27px;
+            line-height: 1.4;
+        }
+
+        .about-text {
+            color: #b6bcc5;
+            font-size: 16px;
+        }
+
+        /* SHOP */
+
+        #shop {
+            background: #f1f2f4;
+        }
+
+        .shop-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: white;
+            border: 1px solid var(--border);
+        }
+
+        .shop-main {
+            padding: 38px;
+        }
+
+        .shop-main h3 {
+            font-family: Georgia, "Times New Roman", serif;
+            color: var(--black);
+            font-size: 27px;
+            margin-top: 0;
+        }
+
+        .shop-main p {
+            color: var(--grey);
+        }
+
+        .shop-side {
+            padding: 38px;
+            background: var(--navy);
+            color: white;
+        }
+
+        .shop-side h3 {
+            margin-top: 0;
+        }
+
+        .shop-side li {
+            margin-bottom: 7px;
+            color: #d5dce6;
+        }
+
+        /* FOLLOW */
+
+        #follow {
+            background: var(--red);
+            color: white;
+            text-align: center;
+        }
+
+        #follow h2 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 39px;
+            margin: 0 0 10px;
+        }
+
+        #follow p {
+            max-width: 700px;
+            margin: 0 auto 22px;
+            color: #ffe5e9;
+        }
+
+        .social-button {
+            display: inline-block;
+            background: white;
+            color: black;
+            padding: 12px 20px;
+            border-radius: 3px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #000;
+            color: white;
+            padding: 48px 6% 25px;
+            border-top: 6px solid var(--red);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1.3fr .7fr;
+            gap: 40px;
+        }
+
+        .footer-brand {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 27px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .footer-copy {
+            color: #8f969f;
+            font-size: 13px;
+            max-width: 650px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            align-content: start;
+            gap: 13px;
+        }
+
+        .footer-links a {
+            color: #d4d4d4;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        .copyright {
+            max-width: 1200px;
+            margin: 30px auto 0;
+            border-top: 1px solid #292929;
+            padding-top: 20px;
+            color: #747a82;
+            font-size: 12px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 920px) {
+            .header-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            .accountability-grid,
+            .issue-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .method-grid,
+            .verification-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .evidence-layout,
+            .discussion-box,
+            .about-grid,
+            .shop-box {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            section {
+                padding: 58px 6%;
+            }
+
+            nav {
+                gap: 9px 13px;
+            }
+
+            nav a {
+                font-size: 11px;
+            }
+
+            .hero {
+                min-height: 560px;
+            }
+
+            .hero-inner {
+                padding: 65px 7%;
+            }
+
+            .compare-columns,
+            .accountability-grid,
+            .issue-grid,
+            .method-grid,
+            .archive-grid,
+            .verification-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .party:first-child {
+                border-right: none;
+                border-bottom: 1px solid #303030;
+            }
+
+            .verify-step {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-links {
+                justify-content: flex-start;
+            }
+        }
     </style>
 </head>
 
- <style>
-        nav { background-color: var(--secondary); padding: 0.8rem; text-align: center; position: sticky; top: 0; z-index: 100; }
-        nav a { color: #cbd5e1; text-decoration: none; margin: 0 0.8rem; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
-        nav a:hover { color: white; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 3rem 1rem; }
-    </style>
-
 <body>
-    <header>
-        <h1>JOHN SMYTHE</h1>
-        <p>Britain &bull; Evidence &bull; Accountability</p>
-    </header>
 
-    <nav>
-        <a href="#overview">Overview</a>
-        <a href="#immigration">01 Immigration</a>
-        <a href="#matrix">Policy Matrix</a>
-        <a href="#evidence-desk">Evidence Desk</a>
-        <a href="#shop">Project Shop</a>
-    </nav>
+<div class="british-stripe"></div>
+
+<header>
+    <div class="header-inner">
+
+        <a href="#home" class="brand">
+            <div class="brand-name">JOHN SMYTHE</div>
+            <div class="brand-tag">
+                BRITAIN • EVIDENCE • ACCOUNTABILITY
+            </div>
+        </a>
+
+        <nav>
+            <a href="#compare">Compare</a>
+            <a href="#accountability">Accountability</a>
+            <a href="#issues">Investigations</a>
+            <a href="#archive">Archive</a>
+            <a href="#discussion">Discuss</a>
+            <a href="#shop">Shop</a>
+            <a href="#evidence" class="nav-red">Submit Evidence</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <div class="hero-inner">
+
+        <div class="hero-label">
+            INDEPENDENT • BRITISH • EVIDENCE-LED
+        </div>
+
+        <h1>
+            JOHN<br>SMYTHE
+        </h1>
+
+        <h2>
+            Britain • Evidence • Accountability • The Next Generation
+        </h2>
+
+        <p>
+            Investigating the decisions, claims, policies and institutions
+            shaping Britain. We bring the evidence together, preserve the
+            record and make competing positions easier to examine.
+        </p>
+
+        <div class="buttons">
+
+            <a href="#compare" class="button button-red">
+                Compare the Evidence
+            </a>
+
+            <a href="#accountability" class="button button-outline">
+                Accountability Tracker
+            </a>
+
+            <a href="#evidence" class="button button-outline">
+                Submit Evidence
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<div class="motto-strip">
+    INVESTIGATE &nbsp;•&nbsp; VERIFY &nbsp;•&nbsp; COMPARE &nbsp;•&nbsp; DECIDE
+</div>
+
+
+<!-- POLITICAL COMPARISON -->
+
+<section id="compare">
+
     <div class="container">
 
-         <style>
-        .hero { padding: 3rem 2rem; background-color: var(--light-bg); border-radius: 8px; margin-bottom: 4rem; border: 1px solid var(--border); text-align: center; }
-        .hero h2 { font-family: Georgia, serif; font-size: 2.2rem; color: var(--primary); margin-bottom: 1rem; }
-        .hero p { font-size: 1.1rem; max-width: 800px; margin: 0 auto; }
-    </style>
-    <section class="hero" id="overview">
-        <h2>Independent &bull; British &bull; Evidence-Led</h2>
-        <p>Investigating the decisions, claims, policies and institutions shaping Britain. We bring the original records together, preserve the timeline, and make competing positions easier to cross-examine. We do not pick sides.</p>
-    </section>
-
-     <style>
-        .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
-        @media (max-width: 768px) { .compare-grid { grid-template-columns: 1fr; } }
-        .position-card { background: var(--light-bg); padding: 2rem; border-radius: 6px; border: 1px solid var(--border); }
-        .position-title { font-family: Georgia, serif; font-size: 1.6rem; font-weight: bold; margin-bottom: 1rem; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
-        .research-status { display: inline-block; font-size: 0.75rem; color: var(--accent-red); font-weight: bold; letter-spacing: 1px; margin-bottom: 1rem; }
-    </style>
-
-     <h2 style="font-family: Georgia, serif; font-size: 2rem; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; margin-top: 4rem; margin-bottom: 1.5rem;" id="immigration">01. Immigration &amp; Border Policy</h2>
-    <div class="compare-grid">
-        <article class="position-card">
-            <div class="position-title">Reform UK</div>
-            <span class="research-status">PARTY POSITION — UNDER REVIEW</span>
-            <p>Proposes a five-year programme called <strong>Operation Restoring Justice</strong> to identify, detain and deport illegal migrants. Includes leaving the ECHR, repealing the Human Rights Act, creating a UK Deportation Command and expanding detention capacity.</p>
-            <div class="research-box"><strong>JOHN SMYTHE CHECK:</strong><br><br>Reform UK's publications serve as primary evidence of what they propose. The data behind their population estimates, projected costs, and practical implementation feasibility is isolated and reviewed below.</div>
-            <a href="https://reformparty.uk" target="_blank" rel="noopener noreferrer" style="display: inline-block; margin-top: 0.75rem; font-size: 0.85rem; background: #e2e8f0; color: var(--primary); padding: 0.4rem 0.8rem; border-radius: 4px; text-decoration: none; font-weight: 500;">Primary source: Reform UK &rarr;</a>
-        </article>
-
-        <article class="position-card">
-            <div class="position-title">Restore Britain</div>
-            <span class="research-status">PARTY POSITION — UNDER REVIEW</span>
-            <p>Proposes deporting illegal migrants and the statutory removal of specified <strong>legally resident foreign nationals</strong> based on set integration metrics. Outlines major restructures to asylum and citizenship paths.</p>
-            <div class="research-box"><strong>JOHN SMYTHE CHECK:</strong><br><br>Restore Britain's policy documentation serves as primary evidence of their platform. Their population estimates, legal claims, and structural feasibility are checked using the exact same standard.</div>
-            <a href="https://restorebritain.org.uk" target="_blank" rel="noopener noreferrer" style="display: inline-block; margin-top: 0.75rem; font-size: 0.85rem; background: #e2e8f0; color: var(--primary); padding: 0.4rem 0.8rem; border-radius: 4px; text-decoration: none; font-weight: 500;">Primary source: Restore Britain &rarr;</a>
-        </article>
-    </div>
-
-    <div class="analysis-box">
-        <h3>THE DATA CHECK: 171,000 Net Migration Baseline</h3>
-        <p>The Office for National Statistics (ONS) provisionally estimated UK long-term international <strong>net migration at 171,000</strong> in the year ending December 2025.</p>
-        <p><strong>Net Migration = Inflow minus Outflow.</strong> ONS estimated 813,000 long-term immigrants entered, while approximately 642,000 long-term emigrants left the country.</p>
-        <div class="research-box">
-            <strong>JOHN SMYTHE CHECK:</strong><br><br>
-            171,000 is a net statistical balance. It does not reflect total gross arrivals, it is distinct from raw asylum claim volumes, and it does not serve as an active count of the unauthorised population.
+        <div class="eyebrow">
+            Political comparison
         </div>
-        <a href="https://ons.gov.uk" target="_blank" rel="noopener noreferrer" class="source-link" style="display: inline-block; margin-top: 0.75rem; font-size: 0.85rem; background: #e2e8f0; color: var(--primary); padding: 0.4rem 0.8rem; border-radius: 4px; text-decoration: none; font-weight: 500;">Original source: ONS Dataset &rarr;</a>
-    </div>
 
-      <div class="analysis-box">
-        <h3>ASYLUM SYSTEM METRICS</h3>
-        <p>Home Office statistics record <strong>85,891 people claiming asylum in the UK</strong> in the year ending June 2026. Data records 40% (33,949) as small-boat arrivals, 12% (10,348) in other identified illegal-entry categories, and 41% (34,999) as having previously held a valid visa before claiming asylum.</p>
-        <div class="research-box">
-            <strong>DATA RULE:</strong> NET MIGRATION &ne; ASYLUM CLAIMS &bull; ASYLUM CLAIMS &ne; ILLEGAL ENTRY<br><br>
-            An asylum claim marks entrance into a legal determination tracking system, not a total count of people living unlawfully in the UK.
-        </div>
-        <a href="https://www.gov.uk" target="_blank" rel="noopener noreferrer" style="display: inline-block; margin-top: 0.75rem; font-size: 0.85rem; background: #e2e8f0; color: var(--primary); padding: 0.4rem 0.8rem; border-radius: 4px; text-decoration: none; font-weight: 500;">Original source: Home Office Statistics &rarr;</a>
-    </div>
+        <h2 class="section-title">
+            Compare the Evidence
+        </h2>
 
-    <div class="analysis-box">
-        <h3>THE UNAUTHORISED POPULATION SCOPE</h3>
-        <p>There is no verified live count giving the exact current number of people living in the UK without lawful immigration status. Estimates vary substantially depending on definitions.</p>
-        <div class="research-box">
-            <strong>JOHN SMYTHE FINDING:</strong><br><br>
-            The exact number is <strong>NOT DEFINITIVELY ESTABLISHED</strong> by verified live records. Historical baseline reference figures include a Greater London Authority study (674,000 to 809,000) and Pew Research Center (700,000 to 900,000) based on 2017 profiles. They are not current counts.
-        </div>
-        <p style="margin-bottom: 1rem;"><strong>Political Estimates:</strong> Reform UK states it exceeds 1 million. Restore Britain estimates up to 2 million. These are political calculations, not verified counts.</p>
-        <a href="https://ox.ac.uk" target="_blank" rel="noopener noreferrer" style="display: inline-block; font-size: 0.85rem; background: #e2e8f0; color: var(--primary); padding: 0.4rem 0.8rem; border-radius: 4px; text-decoration: none; font-weight: 500;">Independent source: Oxford Migration Observatory &rarr;</a>
-    </div>
+        <p class="section-intro">
+            Political arguments are often reduced to slogans, personalities
+            and social-media clips. John Smythe aims to put the original
+            policies, claims, records and sources next to one another so
+            readers can examine the differences themselves.
+        </p>
 
-    <div class="analysis-box" style="background-color: var(--light-bg); margin-top: 3rem;">
-        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Questions From Britain</h3>
-        <p style="margin-bottom: 1.5rem;">John Smythe intends to put the exact same 10 baseline clarity questions to both party hierarchies to check structural feasibility:</p>
-        <ol style="line-height: 1.8; margin-left: 1.5rem; margin-bottom: 1.5rem;">
-            <li>How many people would your immigration policy remove during one full parliamentary term?</li>
-            <li>Of those people, how many are currently legally resident?</li>
-            <li>What is the estimated total implementation cost?</li>
-            <li>Which countries have agreed, or indicated willingness, to accept the people you propose returning?</li>
-            <li>How much additional detention capacity would be required?</li>
-            <li>Which UK laws would need to be repealed or amended?</li>
-            <li>Which international obligations would need to be left, renegotiated or interpreted differently?</li>
-            <li>What appeal and judicial-review rights would remain?</li>
-            <li>How would the policy deal with British spouses, British children and mixed-nationality families?</li>
-            <li>Will you publish the datasets, assumptions and calculations behind your estimates and costings?</li>
-        </ol>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-            <div style="background: #ffffff; padding: 1rem; border: 1px solid var(--border); border-radius: 4px; font-size: 0.85rem;"><strong>REFORM UK RESPONSE:</strong> Not yet requested / recorded.</div>
-            <div style="background: #ffffff; padding: 1rem; border: 1px solid var(--border); border-radius: 4px; font-size: 0.85rem;"><strong>RESTORE BRITAIN RESPONSE:</strong> Not yet requested / recorded.</div>
-        </div>
-    </div>
 
-      <style>
-        .topic-matrix-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-        .topic-card { border: 1px solid var(--border); padding: 1.75rem; border-radius: 6px; background: var(--light-bg); }
-        .topic-card h3 { font-family: Georgia, serif; color: var(--primary); margin-bottom: 0.75rem; font-size: 1.3rem; border-bottom: 1px solid var(--border); padding-bottom: 0.4rem; }
-        .topic-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
-        .topic-col-box { background: #ffffff; padding: 0.75rem; border-radius: 4px; border: 1px solid var(--border); font-size: 0.85rem; }
-        .topic-col-box h4 { font-size: 0.8rem; text-transform: uppercase; color: #64748b; margin-bottom: 0.25rem; }
-    </style>
+        <div class="comparison-feature">
 
-    <h2 style="font-family: Georgia, serif; font-size: 2.2rem; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; margin-top: 5rem; margin-bottom: 1.5rem;" id="matrix">The Complete Policy Matrix</h2>
-    <p>Tracking commitments, updates, and independent source evidence across the remaining programmatic tracks.</p>
-    
-    <div class="topic-matrix-grid">
-        <!-- Tax & Economy -->
-        <div class="topic-card">
-            <h3>02. Tax &amp; Economy</h3>
-            <p>Evaluating taxation limits, personal allowances, small business metrics, and public fiscal changes.</p>
-            <div class="topic-columns">
-                <div class="topic-col-box"><h4>Reform UK</h4>Research Underway</div>
-                <div class="topic-col-box"><h4>Restore Britain</h4>Research Underway</div>
+            <div class="comparison-top">
+
+                <span class="live">
+                    FIRST COMPARISON • IN DEVELOPMENT
+                </span>
+
+                <h3>
+                    Reform UK
+                    <span class="versus">vs</span>
+                    Restore Britain
+                </h3>
+
+                <p>
+                    Where do they agree? Where do they differ?
+                    What exactly have they proposed — and what evidence
+                    supports the arguments?
+                </p>
+
             </div>
+
+
+            <div class="compare-columns">
+
+                <div class="party">
+
+                    <div class="party-label">
+                        Political party
+                    </div>
+
+                    <h4>Reform UK</h4>
+
+                    <p>
+                        John Smythe will record Reform UK's current published
+                        policies, significant commitments, subsequent changes
+                        and relevant public records.
+                    </p>
+
+                    <span class="status">
+                        Research being compiled
+                    </span>
+
+                </div>
+
+
+                <div class="party">
+
+                    <div class="party-label">
+                        Political party
+                    </div>
+
+                    <h4>Restore Britain</h4>
+
+                    <p>
+                        John Smythe will record Restore Britain's current
+                        published policies, significant commitments,
+                        subsequent changes and relevant public records.
+                    </p>
+
+                    <span class="status">
+                        Research being compiled
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="compare-topics">
+
+                <span class="topic-pill">Immigration</span>
+                <span class="topic-pill">Economy</span>
+                <span class="topic-pill">Tax</span>
+                <span class="topic-pill">NHS</span>
+                <span class="topic-pill">Energy</span>
+                <span class="topic-pill">Crime</span>
+                <span class="topic-pill">Free Speech</span>
+                <span class="topic-pill">Foreign Policy</span>
+                <span class="topic-pill">Funding</span>
+                <span class="topic-pill">Accountability</span>
+
+            </div>
+
+
+            <div class="comparison-action">
+
+                <a
+                    href="reform-vs-restore.html"
+                    class="button button-red"
+                >
+                    Open Full Comparison
+                </a>
+
+                <div class="comparison-note">
+                    The detailed comparison is being researched before publication.
+                    No party is awarded a John Smythe score, ranking or endorsement.
+                </div>
+
+            </div>
+
         </div>
 
-        <!-- NHS & Health -->
-        <div class="topic-card">
-            <h3>03. NHS &amp; Health</h3>
-            <p>Tracking staffing profiles, operational wait lists, infrastructure funding shifts, and training models.</p>
-            <div class="topic-columns">
-                <div class="topic-col-box"><h4>Reform UK</h4>Research Underway</div>
-                <div class="topic-col-box"><h4>Restore Britain</h4>Research Underway</div>
-            </div>
-        </div>
     </div>
 
-     <div class="topic-matrix-grid" style="margin-top: 1.5rem;">
-        <!-- Energy & Net Zero -->
-        <div class="topic-card">
-            <h3>04. Energy &amp; Net Zero</h3>
-            <p>Comparing domestic power grids, extraction targets, household bills, and environmental tracking mandates.</p>
-            <div class="topic-columns">
-                <div class="topic-col-box"><h4>Reform UK</h4>Research Underway</div>
-                <div class="topic-col-box"><h4>Restore Britain</h4>Research Underway</div>
-            </div>
+</section>
+
+
+<!-- ACCOUNTABILITY -->
+
+<section id="accountability">
+
+    <div class="container">
+
+        <div class="eyebrow">
+            Follow the record
         </div>
 
-        <!-- Crime & Policing -->
-        <div class="topic-card">
-            <h3>05. Crime &amp; Policing</h3>
-            <p>Benchmarking police target densities, statutory sentencing models, and public prosecution tracks.</p>
-            <div class="topic-columns">
-                <div class="topic-col-box"><h4>Reform UK</h4>Research Underway</div>
-                <div class="topic-col-box"><h4>Restore Britain</h4>Research Underway</div>
+        <h2 class="section-title">
+            Accountability Tracker
+        </h2>
+
+        <p class="section-intro">
+            What was promised? What happened afterwards? What explanation
+            was given? The tracker is being designed to preserve that chain
+            rather than allowing today's statement to replace yesterday's.
+        </p>
+
+
+        <div class="accountability-grid">
+
+            <div class="account-card red">
+
+                <span class="status">
+                    In development
+                </span>
+
+                <h3>Promise Tracker</h3>
+
+                <p>
+                    Record significant manifesto and public commitments
+                    together with their date, original wording, source,
+                    subsequent action and current position.
+                </p>
+
             </div>
+
+
+            <div class="account-card">
+
+                <span class="status">
+                    In development
+                </span>
+
+                <h3>Government Accountability</h3>
+
+                <p>
+                    Follow important decisions across government departments,
+                    ministers and public institutions using official records
+                    and documented responses.
+                </p>
+
+            </div>
+
+
+            <div class="account-card navy">
+
+                <span class="status">
+                    In development
+                </span>
+
+                <h3>Public Body Tracker</h3>
+
+                <p>
+                    Councils, regulators and other public organisations can
+                    also be examined against their responsibilities,
+                    published decisions and documented outcomes.
+                </p>
+
+            </div>
+
         </div>
 
-        <!-- Free Speech -->
-        <div class="topic-card">
-            <h3>06. Free Speech &amp; Liberties</h3>
-            <p>Analyzing protest spacing regulations, digital safety rollbacks, and statutory speech limits.</p>
-            <div class="topic-columns">
-                <div class="topic-col-box"><h4>Reform UK</h4>Research Underway</div>
-                <div class="topic-col-box"><h4>Restore Britain</h4>Research Underway</div>
-            </div>
-        </div>
     </div>
 
-      <style>
-        .evidence-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem; background: var(--light-bg); padding: 2.5rem; border-radius: 8px; border: 1px solid var(--border); margin-top: 2rem; }
-        @media (max-width: 768px) { .evidence-layout { grid-template-columns: 1fr; } }
-        .info-list-box ul { list-style-type: none; margin-top: 0.5rem; }
-        .info-list-box li { margin-bottom: 0.75rem; padding-left: 1.25rem; position: relative; font-size: 0.95rem; }
-        .info-list-box li::before { content: "•"; color: var(--accent-red); font-weight: bold; position: absolute; left: 0; }
-        .form-element { margin-bottom: 1.25rem; }
-        .form-element label { display: block; font-weight: 600; margin-bottom: 0.4rem; font-size: 0.9rem; }
-        .form-element input, .form-element select, .form-element textarea { width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 4px; font-family: inherit; font-size: 0.95rem; }
-        .btn-submit { background-color: var(--primary); color: white; padding: 0.75rem 2rem; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; }
-    </style>
+</section>
 
-    <h2 style="font-family: Georgia, serif; font-size: 2.2rem; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; margin-top: 5rem; margin-bottom: 1.5rem;" id="evidence-desk">The John Smythe Evidence Desk</h2>
-    
-    <div class="evidence-layout">
-        <div class="info-list-box">
-            <h3>Factual Evidence Standards</h3>
-            <p style="margin: 0.5rem 0 1rem; color: #64748b; font-size: 0.95rem;">We only incorporate verified, checkable primary sources into our database tracking pipelines. We accept:</p>
-            <ul>
-                <li>Official documents and government publications</li>
-                <li>Legislation and parliamentary records</li>
-                <li>Court judgments and official decisions</li>
-                <li>Official statistics and published datasets</li>
-                <li>Original speeches, interviews, and policy papers</li>
-            </ul>
+
+<!-- METHOD -->
+
+<section id="method">
+
+    <div class="container">
+
+        <div class="eyebrow">
+            The John Smythe method
         </div>
 
-         <form onsubmit="event.preventDefault(); alert('Verification tracking token generated successfully.');">
-            <div class="form-element">
-                <label for="relates">Factual Metric Focus</label>
-                <select id="relates">
-                    <option>Government &amp; Accountability</option>
-                    <option>Immigration &amp; Integration</option>
-                    <option>Tax &amp; Economy</option>
-                    <option>NHS &amp; Healthcare</option>
+        <h2 class="section-title">
+            Investigate. Verify. Compare. Decide.
+        </h2>
+
+        <p class="section-intro">
+            John Smythe's job is not to make a political decision for the
+            reader. The objective is to make the underlying evidence easier
+            to find, understand and challenge.
+        </p>
+
+
+        <div class="method-grid">
+
+            <div class="method-card">
+
+                <div class="method-number">01</div>
+
+                <h3>Investigate</h3>
+
+                <p>
+                    Identify the claim, decision, policy or event and establish
+                    exactly what needs to be examined.
+                </p>
+
+            </div>
+
+
+            <div class="method-card">
+
+                <div class="method-number">02</div>
+
+                <h3>Verify</h3>
+
+                <p>
+                    Locate primary documents and authoritative records wherever
+                    possible and distinguish verified facts from allegations.
+                </p>
+
+            </div>
+
+
+            <div class="method-card">
+
+                <div class="method-number">03</div>
+
+                <h3>Compare</h3>
+
+                <p>
+                    Put competing claims and positions alongside each other
+                    with relevant context and their original sources.
+                </p>
+
+            </div>
+
+
+            <div class="method-card">
+
+                <div class="method-number">04</div>
+
+                <h3>Decide</h3>
+
+                <p>
+                    Readers inspect the evidence and reach their own conclusions.
+                    John Smythe does not choose a political party for them.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ISSUES -->
+
+<section id="issues">
+
+    <div class="container">
+
+        <div class="eyebrow">
+            Investigation areas
+        </div>
+
+        <h2 class="section-title">
+            The Issues Shaping Britain
+        </h2>
+
+        <p class="section-intro">
+            These sections will grow into sourced investigations, comparisons,
+            timelines and document collections.
+        </p>
+
+
+        <div class="issue-grid">
+
+            <div class="issue-card">
+                <div class="issue-number">01</div>
+                <h3>Government & Accountability</h3>
+                <p>
+                    Government commitments, Parliament, public spending,
+                    regulation and institutional responsibility.
+                </p>
+            </div>
+
+            <div class="issue-card">
+                <div class="issue-number">02</div>
+                <h3>Britain & Society</h3>
+                <p>
+                    British institutions, communities, culture, social change
+                    and questions affecting the country's future.
+                </p>
+            </div>
+
+            <div class="issue-card">
+                <div class="issue-number">03</div>
+                <h3>Immigration & Integration</h3>
+                <p>
+                    Policy, official statistics, border control, integration
+                    and competing economic and social arguments.
+                </p>
+            </div>
+
+            <div class="issue-card">
+                <div class="issue-number">04</div>
+                <h3>Religion & Ideology</h3>
+                <p>
+                    Examination of religious and political ideas, institutions,
+                    influence, rights, equality and freedom.
+                </p>
+            </div>
+
+            <div class="issue-card">
+                <div class="issue-number">05</div>
+                <h3>Israel & Palestine</h3>
+                <p>
+                    Evidence-led examination of events, claims, government
+                    policy and competing narratives surrounding the conflict.
+                </p>
+            </div>
+
+            <div class="issue-card">
+                <div class="issue-number">06</div>
+                <h3>Extremism & Security</h3>
+                <p>
+                    Extremism, terrorism, radicalisation, national security
+                    and the relationship between security and civil liberties.
+                </p>
+            </div>
+
+            <div class="issue-card">
+                <div class="issue-number">07</div>
+                <h3>Children & Safeguarding</h3>
+                <p>
+                    Exploitation, institutional safeguarding and documented
+                    failures to protect vulnerable people.
+                </p>
+            </div>
+
+            <div class="issue-card">
+                <div class="issue-number">08</div>
+                <h3>Freedom of Speech</h3>
+                <p>
+                    Protest, expression, censorship, online speech and the
+                    legal boundaries surrounding public debate.
+                </p>
+            </div>
+
+            <div class="issue-card">
+                <div class="issue-number">09</div>
+                <h3>Scams & Consumer Protection</h3>
+                <p>
+                    Scams, misleading practices, consumer rights and digital
+                    threats — preserving John Smythe's original mission.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- EVIDENCE DESK -->
+
+<section id="evidence">
+
+    <div class="container">
+
+        <div class="eyebrow">
+            Public participation
+        </div>
+
+        <h2 class="section-title">
+            The John Smythe Evidence Desk
+        </h2>
+
+        <p class="section-intro">
+            Have we missed something? Challenge the analysis. Submit the
+            source. Correct the record. Reader submissions are reviewed
+            before they can become part of the John Smythe evidence archive.
+        </p>
+
+
+        <div class="evidence-layout">
+
+            <div class="evidence-panel">
+
+                <h3>
+                    What counts as useful evidence?
+                </h3>
+
+                <p>
+                    The strongest submissions allow the source to be independently
+                    checked.
+                </p>
+
+                <ul class="evidence-rules">
+                    <li>Official documents and government publications</li>
+                    <li>Legislation and parliamentary records</li>
+                    <li>Court judgments and official decisions</li>
+                    <li>Official statistics and published datasets</li>
+                    <li>Original speeches, interviews and policy documents</li>
+                    <li>Reliable contemporary reporting</li>
+                    <li>Documents whose origin can be independently established</li>
+                </ul>
+
+                <p>
+                    Unsupported allegations, fabricated documents and manipulated
+                    material are not evidence simply because they have been posted
+                    online.
+                </p>
+
+            </div>
+
+
+            <div class="evidence-panel evidence-form">
+
+                <h3>
+                    Submit Evidence
+                </h3>
+
+                <label for="evidence-topic">
+                    Subject
+                </label>
+
+                <select id="evidence-topic">
+                    <option>Government & Accountability</option>
+                    <option>Political Comparison</option>
+                    <option>Immigration & Integration</option>
+                    <option>Religion & Ideology</option>
+                    <option>Israel & Palestine</option>
+                    <option>Extremism & Security</option>
+                    <option>Children & Safeguarding</option>
                     <option>Freedom of Speech</option>
+                    <option>Scams & Consumer Protection</option>
+                    <option>Correction to John Smythe</option>
+                    <option>Other</option>
                 </select>
+
+
+                <label for="source-url">
+                    Source URL
+                </label>
+
+                <input
+                    id="source-url"
+                    type="url"
+                    placeholder="https://..."
+                >
+
+
+                <label for="source-title">
+                    Source / document title
+                </label>
+
+                <input
+                    id="source-title"
+                    type="text"
+                    placeholder="Name of document or source"
+                >
+
+
+                <label for="evidence-explanation">
+                    What does this evidence show?
+                </label>
+
+                <textarea
+                    id="evidence-explanation"
+                    placeholder="Explain why this source is relevant..."
+                ></textarea>
+
+
+                <button
+                    class="button button-red"
+                    type="button"
+                    onclick="submitEvidenceDemo()"
+                >
+                    Submit for Verification
+                </button>
+
+
+                <div class="form-note">
+                    This demonstration form is not yet connected to a database.
+                    Do not submit confidential, personal or sensitive material yet.
+                </div>
+
+                <div id="evidence-message"></div>
+
             </div>
-            <div class="form-element">
-                <label for="url">Authoritative Source URL</label>
-                <input type="url" id="url" placeholder="https://gov.uk..." required>
-            </div>
-            <div class="form-element">
-                <label for="details">Factual Analysis Breakdown</label>
-                <textarea id="details" rows="4" placeholder="List specific document clauses, data columns, or metrics proved by this link..." required></textarea>
-            </div>
-            <button type="submit" class="btn-submit">Submit for Verification</button>
-        </form>
+
+        </div>
+
     </div>
 
-      <style>
-        .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
-        .shop-card { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; background: #ffffff; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .shop-img-placeholder { background: #e2e8f0; height: 180px; display: flex; align-items: center; justify-content: center; color: #64748b; font-style: italic; font-size: 0.9rem; }
-        .shop-content { padding: 1.25rem; }
-        .shop-content h3 { font-family: Georgia, serif; margin-bottom: 0.25rem; color: var(--primary); }
-        .price-tag { font-weight: bold; color: var(--primary); font-size: 1.1rem; margin: 0.5rem 0; }
-        .btn-shop-mock { display: block; width: 100%; text-align: center; background: #f1f5f9; color: var(--primary); padding: 0.5rem; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 0.85rem; border: 1px solid var(--border); }
-    </style>
+</section>
 
-    <h2 style="font-family: Georgia, serif; font-size: 2.2rem; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; margin-top: 5rem; margin-bottom: 1.5rem;" id="shop">John Smythe Shop</h2>
-    <p>Supporting independent, non-partisan British data analysis. Our storefront services are in development—no payments are currently processed.</p>
-    
-    <div class="shop-grid">
-        <div class="shop-card">
-            <div class="shop-img-placeholder">Research Volumes &amp; Books</div>
-            <div class="shop-content">
-                <h3>Political Manifesto Analysis</h3>
-                <p style="font-size: 0.85rem; color: #64748b; margin-top: 0.25rem;">Comprehensive printed comparison guides.</p>
-                <div class="price-tag">£19.99</div>
-                <a href="#shop" class="btn-shop-mock" onclick="alert('Storefront simulation layer.');">Preview Coming Soon</a>
-            </div>
+
+<!-- VERIFICATION -->
+
+<div class="verification">
+
+    <div class="verification-inner">
+
+        <div class="verify-step">
+            <strong>1. SUBMITTED</strong>
+            <span>
+                A reader identifies material relevant to an investigation.
+            </span>
         </div>
+
+        <div class="verify-step">
+            <strong>2. CHECKING</strong>
+            <span>
+                The origin, context and relevance of the material are examined.
+            </span>
+        </div>
+
+        <div class="verify-step">
+            <strong>3. SOURCE VERIFIED</strong>
+            <span>
+                The source has been authenticated or independently located.
+            </span>
+        </div>
+
+        <div class="verify-step">
+            <strong>4. PUBLISHED</strong>
+            <span>
+                Relevant evidence can be incorporated with appropriate context.
+            </span>
+        </div>
+
     </div>
 
-     <div class="shop-grid" style="margin-top: 1.5rem;">
-        <!-- Primary Source Compendiums -->
-        <div class="shop-card">
-            <div class="shop-img-placeholder">Primary Source Compendiums</div>
-            <div class="shop-content">
-                <h3>Factual Dataset Compilations</h3>
-                <p style="font-size: 0.85rem; color: #64748b; margin-top: 0.25rem;">Bound physical timeline mapping assets.</p>
-                <div class="price-tag">£29.99</div>
-                <a href="#shop" class="btn-shop-mock" onclick="alert('Storefront module simulation only.');">Preview Coming Soon</a>
-            </div>
+</div>
+
+
+<!-- DISCUSSION -->
+
+<section id="discussion">
+
+    <div class="container">
+
+        <div class="eyebrow">
+            Reader discussion
         </div>
 
-        <!-- Official Merchandise -->
-        <div class="shop-card">
-            <div class="shop-img-placeholder">Official Merchandise</div>
-            <div class="shop-content">
-                <h3>John Smythe Desk Gear</h3>
-                <p style="font-size: 0.85rem; color: #64748b; margin-top: 0.25rem;">Analyst-grade structural materials.</p>
-                <div class="price-tag">£14.99</div>
-                <a href="#shop" class="btn-shop-mock" onclick="alert('Storefront module simulation only.');">Preview Coming Soon</a>
+        <h2 class="section-title">
+            Challenge the Argument
+        </h2>
+
+        <p class="section-intro">
+            Future investigations will allow moderated reader discussion.
+            Disagreement is welcome. Evidence is even better.
+        </p>
+
+
+        <div class="discussion-box">
+
+            <div class="discussion-main">
+
+                <h3>
+                    Discussion should improve the investigation.
+                </h3>
+
+                <p>
+                    Readers will be able to question an interpretation,
+                    identify missing context, provide counter-evidence and
+                    discuss competing conclusions.
+                </p>
+
+                <p>
+                    Reader comments will remain clearly separate from John
+                    Smythe's published material and evidence archive.
+                </p>
+
+                <button
+                    class="button button-dark"
+                    onclick="discussionComingSoon()"
+                >
+                    Join the Discussion
+                </button>
+
+                <p id="discussion-message"></p>
+
             </div>
+
+
+            <div class="discussion-side">
+
+                <h3>
+                    Discussion Standard
+                </h3>
+
+                <p>
+                    Challenge claims and ideas rather than attacking people
+                    because of race, nationality, ethnicity or religion.
+                </p>
+
+                <p>
+                    Serious allegations require evidence. Material that appears
+                    fabricated, unlawful, threatening or deliberately misleading
+                    should not be published.
+                </p>
+
+                <p>
+                    And yes — readers may challenge John Smythe itself.
+                </p>
+
+            </div>
+
         </div>
+
     </div>
 
-       <!-- PIPELINE ARCHIVE BLOCKS -->
-    <style>
-        .pipeline-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
-        .pipeline-card { border: 1px solid var(--border); padding: 1.5rem; border-radius: 6px; background: var(--light-bg); }
-        .pipeline-card span { font-size: 0.75rem; color: #64748b; text-transform: uppercase; font-weight: bold; display: block; margin-bottom: 0.5rem; }
-        .pipeline-card h3 { font-family: Georgia, serif; margin-bottom: 0.5rem; color: var(--primary); }
-    </style>
+</section>
 
-    <h2 style="font-family: Georgia, serif; font-size: 2.2rem; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; margin-top: 5rem; margin-bottom: 1.5rem;" id="archive">Evidence &amp; Archive Pipeline</h2>
-    
-    <div class="pipeline-grid">
-        <div class="pipeline-card">
-            <span>In Development</span>
-            <h3>Government Promise Tracker</h3>
-            <p>Preserving the timeline chain by tracking manifestos against true structural outcomes.</p>
-        </div>
-        <div class="pipeline-card">
-            <span>In Development</span>
-            <h3>Source Library</h3>
-            <p>A repository containing public legislation, court judgments, and raw datasets free from spin.</p>
-        </div>
-        <div class="pipeline-card">
-            <span>In Development</span>
-            <h3>Systemic Chronologies</h3>
-            <p>Reconstructing major state spending decisions strictly by date to enforce complete accountability.</p>
-        </div>
-    </div>
- <style>
-        .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
-        .shop-card { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; background: #ffffff; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .shop-img-placeholder { background: #e2e8f0; height: 180px; display: flex; align-items: center; justify-content: center; color: #64748b; font-style: italic; font-size: 0.9rem; }
-        .shop-content { padding: 1.25rem; }
-        .shop-content h3 { font-family: Georgia, serif; margin-bottom: 0.25rem; color: var(--primary); }
-        .price-tag { font-weight: bold; color: var(--primary); font-size: 1.1rem; margin: 0.5rem 0; }
-        .btn-shop-mock { display: block; width: 100%; text-align: center; background: #f1f5f9; color: var(--primary); padding: 0.5rem; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 0.85rem; border: 1px solid var(--border); }
-    </style>
 
-    <h2 style="font-family: Georgia, serif; font-size: 2.2rem; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; margin-top: 5rem; margin-bottom: 1.5rem;" id="shop">John Smythe Shop</h2>
-    <p>Supporting independent, non-partisan British data analysis. Our storefront services are in development—no payments are currently processed.</p>
-    
-    <div class="shop-grid">
-        <div class="shop-card">
-            <div class="shop-img-placeholder">Research Volumes &amp; Books</div>
-            <div class="shop-content">
-                <h3>Political Manifesto Analysis</h3>
-                <p style="font-size: 0.85rem; color: #64748b; margin-top: 0.25rem;">Comprehensive printed comparison guides.</p>
-                <div class="price-tag">£19.99</div>
-                <a href="#shop" class="btn-shop-mock" onclick="alert('Storefront simulation layer.');">Preview Coming Soon</a>
+<!-- ARCHIVE -->
+
+<section id="archive">
+
+    <div class="container">
+
+        <div class="eyebrow">
+            Preserve the record
+        </div>
+
+        <h2 class="section-title">
+            Evidence & Archive
+        </h2>
+
+        <p class="section-intro">
+            News disappears quickly. The archive is intended to preserve
+            important source material and chronology so earlier claims and
+            decisions remain discoverable.
+        </p>
+
+
+        <div class="archive-grid">
+
+            <div class="archive-card">
+                <span class="status">Coming soon</span>
+                <h3>Government Promise Archive</h3>
+                <p>
+                    Original commitments, dates, sources, later developments
+                    and official explanations.
+                </p>
             </div>
-        </div>
-    </div>
-    <div class="shop-grid" style="margin-top: 1.5rem;">
-        <!-- Primary Source Compendiums -->
-        <div class="shop-card">
-            <div class="shop-img-placeholder">Primary Source Compendiums</div>
-            <div class="shop-content">
-                <h3>Factual Dataset Compilations</h3>
-                <p style="font-size: 0.85rem; color: #64748b; margin-top: 0.25rem;">Bound physical timeline mapping assets.</p>
-                <div class="price-tag">£29.99</div>
-                <a href="#shop" class="btn-shop-mock" onclick="alert('Storefront module simulation only.');">Preview Coming Soon</a>
+
+            <div class="archive-card">
+                <span class="status">Coming soon</span>
+                <h3>Source Library</h3>
+                <p>
+                    Legislation, reports, parliamentary records, judgments,
+                    statistics and important primary documents.
+                </p>
             </div>
-        </div>
 
-        <!-- Official Merchandise -->
-        <div class="shop-card">
-            <div class="shop-img-placeholder">Official Merchandise</div>
-            <div class="shop-content">
-                <h3>John Smythe Desk Gear</h3>
-                <p style="font-size: 0.85rem; color: #64748b; margin-top: 0.25rem;">Analyst-grade structural materials.</p>
-                <div class="price-tag">£14.99</div>
-                <a href="#shop" class="btn-shop-mock" onclick="alert('Storefront module simulation only.');">Preview Coming Soon</a>
+            <div class="archive-card">
+                <span class="status">Coming soon</span>
+                <h3>Chronologies</h3>
+                <p>
+                    Important events reconstructed by date so readers can see
+                    what happened and when.
+                </p>
             </div>
+
+            <div class="archive-card">
+                <span class="status">Coming soon</span>
+                <h3>Investigations</h3>
+                <p>
+                    Longer-form work bringing together sources, competing
+                    accounts and documented responses.
+                </p>
+            </div>
+
         </div>
+
     </div>
 
-     <style>
-        .pipeline-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
-        .pipeline-card { border: 1px solid var(--border); padding: 1.5rem; border-radius: 6px; background: var(--light-bg); border-top: 3px solid var(--primary); }
-        .pipeline-card span { font-size: 0.75rem; color: #64748b; text-transform: uppercase; font-weight: bold; display: block; margin-bottom: 0.5rem; }
-        .pipeline-card h3 { font-family: Georgia, serif; margin-bottom: 0.5rem; color: var(--primary); }
-    </style>
+</section>
 
-    <h2 style="font-family: Georgia, serif; font-size: 2.2rem; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; margin-top: 5rem; margin-bottom: 1.5rem;" id="archive">Evidence &amp; Archive Pipeline</h2>
-    
-    <div class="pipeline-grid">
-        <div class="pipeline-card">
-            <span>In Development</span>
-            <h3>Government Promise Tracker</h3>
-            <p>Preserving the timeline chain by tracking manifestos against true structural outcomes.</p>
+
+<!-- ABOUT -->
+
+<section id="about">
+
+    <div class="container">
+
+        <div class="eyebrow">
+            About John Smythe
         </div>
-        <div class="pipeline-card">
-            <span>In Development</span>
-            <h3>Source Library</h3>
-            <p>A repository containing public legislation, court judgments, and raw datasets free from spin.</p>
+
+        <h2 class="section-title">
+            Independent. Evidence-Led. British.
+        </h2>
+
+
+        <div class="about-grid">
+
+            <div class="about-quote">
+                Proud of Britain.<br>
+                Independent of government.<br>
+                Accountable to evidence.
+            </div>
+
+
+            <div class="about-text">
+
+                <p>
+                    John Smythe is an independent British online project focused
+                    on evidence, accountability, public awareness and preserving
+                    the record for future generations.
+                </p>
+
+                <p>
+                    Governments, political parties and institutions change.
+                    The evidential standard should not change with them.
+                </p>
+
+                <p>
+                    Political parties are compared using the same principles.
+                    John Smythe does not endorse a party or award political
+                    winners. Readers should be able to inspect the material and
+                    reach their own conclusions.
+                </p>
+
+                <p>
+                    Criticism of governments, political movements, religions,
+                    ideologies and institutions should focus on ideas, policies,
+                    evidence and documented conduct — not collective hostility
+                    towards people because of their identity.
+                </p>
+
+                <p>
+                    When John Smythe gets something materially wrong, the record
+                    should be corrected.
+                </p>
+
+            </div>
+
         </div>
-        <div class="pipeline-card">
-            <span>In Development</span>
-            <h3>Systemic Chronologies</h3>
-            <p>Reconstructing major state spending decisions strictly by date to enforce complete accountability.</p>
-        </div>
+
     </div>
-      </div> <!-- Closes out the outer 'container' grid properly -->
 
-    <footer style="background-color: var(--primary); color: #94a3b8; padding: 4rem 1rem; text-align: center; margin-top: 6rem; border-top: 4px solid var(--accent-red); font-size: 0.9rem;">
-        <h2>JOHN SMYTHE</h2>
-        <p>Britain &bull; Evidence &bull; Accountability &bull; The Next Generation</p>
-        <p style="margin-top: 2rem; font-size: 0.75rem; color: #64748b;">&copy; 2026 JohnSmythe.com &bull; Independent British Website asset array.</p>
-    </footer>
+</section>
+
+
+<!-- SHOP -->
+
+<section id="shop">
+
+    <div class="container">
+
+        <div class="eyebrow">
+            Support the project
+        </div>
+
+        <h2 class="section-title">
+            John Smythe Shop
+        </h2>
+
+
+        <div class="shop-box">
+
+            <div class="shop-main">
+
+                <h3>
+                    An independent future.
+                </h3>
+
+                <p>
+                    A future shop can help support the continued development
+                    of JohnSmythe.com while keeping the core public evidence
+                    and accountability material accessible.
+                </p>
+
+                <p>
+                    No payments are currently being accepted through this page.
+                </p>
+
+                <span class="status">
+                    Shop in development
+                </span>
+
+            </div>
+
+
+            <div class="shop-side">
+
+                <h3>
+                    Future ideas
+                </h3>
+
+                <ul>
+                    <li>Books and e-books</li>
+                    <li>Research collections</li>
+                    <li>Printed reference guides</li>
+                    <li>Archive publications</li>
+                    <li>John Smythe merchandise</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOLLOW -->
+
+<section id="follow">
+
+    <div class="container">
+
+        <h2>
+            Follow John Smythe
+        </h2>
+
+        <p>
+            Follow current commentary and developments while the permanent
+            research and evidence archive grows here at JohnSmythe.com.
+        </p>
+
+        <a
+            href="https://x.com/SAJohnSmythe80"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-button"
+        >
+            @SAJohnSmythe80 on X
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="footer-inner">
+
+        <div>
+
+            <div class="footer-brand">
+                JOHN SMYTHE
+            </div>
+
+            <p class="footer-copy">
+                Britain • Evidence • Accountability • The Next Generation
+            </p>
+
+            <p class="footer-copy">
+                John Smythe publishes research, comparison, commentary and
+                public-interest material. Significant factual claims should
+                be supported by identifiable sources wherever reasonably
+                possible. Opinion and analysis should be distinguishable from
+                established fact.
+            </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="#home">Home</a>
+            <a href="#compare">Compare</a>
+            <a href="#accountability">Accountability</a>
+            <a href="#issues">Investigations</a>
+            <a href="#evidence">Submit Evidence</a>
+            <a href="#discussion">Discuss</a>
+            <a href="#archive">Archive</a>
+            <a href="#about">About</a>
+            <a href="#shop">Shop</a>
+
+        </div>
+
+    </div>
+
+
+    <div class="copyright">
+        © 2026 JohnSmythe.com • Independent British website.
+    </div>
+
+</footer>
+
+
+<script>
+
+    function submitEvidenceDemo() {
+
+        const source =
+            document.getElementById("source-url").value.trim();
+
+        const title =
+            document.getElementById("source-title").value.trim();
+
+        const explanation =
+            document.getElementById("evidence-explanation").value.trim();
+
+        const message =
+            document.getElementById("evidence-message");
+
+
+        if (!source || !title || !explanation) {
+
+            message.textContent =
+                "Please complete the source URL, source title and explanation.";
+
+            message.style.color = "#ff9aaa";
+
+            return;
+        }
+
+
+        message.textContent =
+            "The Evidence Desk is not connected yet, so nothing has been sent. " +
+            "The submission system will be connected before public submissions open.";
+
+        message.style.color = "#ffffff";
+    }
+
+
+    function discussionComingSoon() {
+
+        const message =
+            document.getElementById("discussion-message");
+
+        message.textContent =
+            "Moderated reader discussion is being developed. " +
+            "Comments are not yet being stored or published.";
+
+        message.style.color = "#c8102e";
+        message.style.fontWeight = "bold";
+    }
+
+</script>
+
 </body>
 </html>
