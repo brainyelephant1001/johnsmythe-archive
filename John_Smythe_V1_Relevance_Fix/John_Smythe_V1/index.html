@@ -1,0 +1,426 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-GB">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>John Smythe | Research Engine</title>
+
+<style>
+
+:root {
+
+  --navy:#101b30;
+
+  --red:#c52b38;
+
+  --bg:#f3f5f9;
+
+  --ink:#17233a;
+
+  --muted:#596579;
+
+  --line:#dce2ec;
+
+}
+
+* { box-sizing:border-box; }
+
+body {
+
+  margin:0;
+
+  font:16px/1.55 system-ui,Segoe UI,Arial,sans-serif;
+
+  color:var(--ink);
+
+  background:var(--bg);
+
+}
+
+header {
+
+  background:var(--navy);
+
+  color:white;
+
+  padding:24px max(22px,calc((100vw - 1100px)/2));
+
+  border-bottom:4px solid var(--red);
+
+}
+
+header strong {
+
+  font:700 27px Georgia,serif;
+
+  letter-spacing:2px;
+
+}
+
+header small {
+
+  display:block;
+
+  color:#bec9db;
+
+  letter-spacing:1.5px;
+
+  margin-top:5px;
+
+}
+
+main { max-width:1100px; margin:35px auto; padding:0 20px; }
+
+.hero,.panel {
+
+  background:white;
+
+  border:1px solid var(--line);
+
+  border-radius:14px;
+
+  padding:28px;
+
+}
+
+h1 { font:700 clamp(29px,4vw,42px) Georgia,serif; margin:0 0 8px; }
+
+h2 { font:700 23px Georgia,serif; }
+
+h3 { font-size:17px; margin:18px 0 8px; }
+
+p { color:var(--muted); }
+
+.eyebrow {
+
+  color:var(--red);
+
+  font-size:12px;
+
+  font-weight:800;
+
+  letter-spacing:1.7px;
+
+  text-transform:uppercase;
+
+}
+
+.search { display:flex; gap:10px; margin-top:23px; }
+
+input {
+
+  flex:1;
+
+  min-width:0;
+
+  padding:15px;
+
+  border:1px solid #b7c2d3;
+
+  border-radius:8px;
+
+  font:inherit;
+
+}
+
+button {
+
+  background:var(--red);
+
+  color:white;
+
+  border:0;
+
+  border-radius:8px;
+
+  padding:12px 20px;
+
+  font-weight:700;
+
+  cursor:pointer;
+
+}
+
+button:disabled { opacity:.55; }
+
+.secondary { background:var(--navy); }
+
+.grid {
+
+  display:grid;
+
+  grid-template-columns:1.6fr 1fr;
+
+  gap:20px;
+
+  margin-top:22px;
+
+}
+
+.record {
+
+  padding:18px 0;
+
+  border-top:1px solid var(--line);
+
+}
+
+.record h3 { margin:0 0 8px; }
+
+.metadata { font-size:13px; color:var(--muted); }
+
+.answer {
+
+  background:#f3f5f9;
+
+  padding:14px;
+
+  border-radius:8px;
+
+  margin-top:12px;
+
+  white-space:pre-wrap;
+
+  overflow-wrap:anywhere;
+
+}
+
+a { color:#0c5798; overflow-wrap:anywhere; }
+
+.notice {
+
+  background:#eef3fa;
+
+  padding:13px;
+
+  border-left:3px solid #59789f;
+
+  margin-top:18px;
+
+}
+
+.status {
+
+  display:inline-block;
+
+  background:#fff1df;
+
+  color:#895000;
+
+  padding:5px 10px;
+
+  border-radius:20px;
+
+  font-size:12px;
+
+  font-weight:700;
+
+}
+
+.source { padding:12px 0; border-top:1px solid var(--line); }
+
+.actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:20px; }
+
+.hidden { display:none; }
+
+footer {
+
+  max-width:1100px;
+
+  margin:30px auto;
+
+  padding:0 20px 30px;
+
+  color:var(--muted);
+
+  font-size:13px;
+
+}
+
+@media(max-width:720px) {
+
+  .grid { grid-template-columns:1fr; }
+
+  .search { flex-direction:column; }
+
+}
+
+
+/* Research progress indicator */
+.progress-panel { margin-top:18px; padding:18px; border:1px solid var(--line); border-radius:10px; background:#f8fafc; }
+.progress-header { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.progress-header strong { color:var(--ink); }
+.progress-track { height:12px; background:#dce2ec; border-radius:999px; overflow:hidden; margin:13px 0 9px; }
+.progress-fill { height:100%; width:0; background:var(--red); border-radius:999px; transition:width .7s ease; }
+.progress-meta { display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; font-size:13px; color:var(--muted); }
+.progress-warning { font-size:13px; margin:12px 0 0; color:#596579; }
+.progress-note { margin:6px 0 0; font-size:13px; color:var(--muted); }
+
+
+.transcript-details { margin-top:10px; }
+.transcript-details summary { cursor:pointer; padding:11px; background:#eef3fa; border-radius:8px; color:var(--ink); }
+.transcript-details summary:hover { background:#e2eaf4; }
+
+</style>
+
+</head>
+
+<body>
+
+
+
+<header>
+
+<strong>JOHN SMYTHE</strong>
+
+<small>BRITAIN • EVIDENCE • ACCOUNTABILITY</small>
+
+</header>
+
+
+
+<main>
+
+<section class="hero">
+
+<div class="eyebrow">Research Engine · Development version</div>
+
+<h1>You ask. We investigate. You decide.</h1>
+
+<p>Investigate public-policy questions using original public records.</p>
+
+
+
+<form id="researchForm" class="search">
+
+<input id="question" type="search" required maxlength="500"
+
+placeholder="Enter a research question">
+
+<button id="searchButton" type="submit">Start research</button>
+
+</form>
+<p class="search-time-notice">
+  ⏱️ <strong>Research processing time:</strong>
+  Research times vary with official-source response times. Please keep this page open while
+  your research is being prepared.
+</p>
+
+
+<div id="researchProgress" class="progress-panel hidden" role="status" aria-live="polite" aria-atomic="true">
+  <div class="progress-header"><strong id="progressTitle">Research in progress…</strong><span id="progressPercent">0% estimated</span></div>
+  <div class="progress-track" role="progressbar" aria-label="Estimated research progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressTrack"><div id="progressFill" class="progress-fill"></div></div>
+  <div class="progress-meta"><span id="progressStage">Contacting official research sources…</span><span id="progressRemaining">Estimated time remaining: about 35 seconds</span></div>
+  <p class="progress-note">This is an estimate, not live progress from the source websites. The search will continue if it takes longer.</p>
+  <p class="progress-warning"><strong>Please note:</strong> Slower computers, internet connections and busy official-source services may increase waiting times. Please keep this page open.</p>
+</div>
+
+
+
+
+<div class="notice">
+
+<strong>Development mode:</strong>
+
+Searches UK Parliament, GOV.UK, legislation and official statistics.
+
+Results are source discoveries, not independently verified findings.
+
+</div>
+
+</section>
+
+
+
+<div class="grid">
+
+<section class="panel">
+
+<div class="eyebrow">Research Results</div>
+
+<h2 id="reportTitle">Your research brief</h2>
+
+<p id="intro">Enter a question above to begin.</p>
+
+<div id="brief" class="hidden">
+
+<p><span class="status" id="status">Awaiting research</span></p>
+
+<div id="researchGuidance"></div>
+<div id="findings"></div>
+
+<section id="testerFeedback" class="panel hidden" style="margin-top:20px;padding:18px;background:#f8fafc" aria-label="Research feedback">
+<h3>Help improve John Smythe V1.0</h3>
+<p>Was this research useful? Optional feedback helps us improve the prototype.</p>
+<form id="feedbackForm">
+<label for="feedbackRating">Your assessment</label>
+<select id="feedbackRating" required style="width:100%;padding:10px;margin:8px 0">
+<option value="">Choose an option</option>
+<option value="useful">Useful</option>
+<option value="partial">Partly useful</option>
+<option value="not_useful">Not useful</option>
+</select>
+<label for="feedbackComment">What could be improved? (optional)</label>
+<textarea id="feedbackComment" maxlength="1500" rows="3" style="width:100%;padding:10px;margin:8px 0" placeholder="Suggestions, missing sources or problems..."></textarea>
+<p style="font-size:13px">Testing notice: We record research questions, search timings, result counts and any feedback you submit, without requesting your name or contact details. Avoid entering sensitive personal information. Records are used privately to improve this prototype; research results are not independently verified.</p>
+<button type="submit" id="feedbackSubmit">Send feedback</button>
+<p id="feedbackStatus" role="status"></p>
+</form>
+</section>
+
+<div class="actions">
+
+<button id="download" class="secondary" type="button">
+
+Download research brief
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<aside class="panel">
+
+<div class="eyebrow">SourceCheck</div>
+
+<h2>Official source searches</h2>
+
+<p>Explore original government and parliamentary sources.</p>
+
+<div id="sources"></div>
+
+</aside>
+
+</div>
+
+</main>
+
+
+
+<footer>
+
+John Smythe Research Engine — Public testing prototype V1.0.
+
+AI verification is not yet enabled.
+
+</footer>
+
+
+
+<script src="/johnsmythe-v1.js"></script>
+
+</body>
+
+</html>

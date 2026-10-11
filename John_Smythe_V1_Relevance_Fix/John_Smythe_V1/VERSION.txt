@@ -1,0 +1,14 @@
+JOHN SMYTHE RESEARCH ENGINE
+RELEASE: 1.0 (clean baseline)
+DATE: 2026-10-11
+
+Original project archived separately by the user.
+Client JavaScript consolidated into johnsmythe-v1.js.
+Python backend preserved in 16 active modules, including server.py.
+Source discovery only; source claims are not independently verified.
+
+REQUIREMENTS: Python, Flask, certifi.
+START: python server.py
+OPEN: http://127.0.0.1:5000
+
+Do NOT overwrite/delete the original project until final local acceptance.
