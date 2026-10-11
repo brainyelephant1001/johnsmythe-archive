@@ -94,8 +94,13 @@ def submit_feedback():
         return jsonify({"error": "Search ID is invalid."}), 400
     if rating not in ("useful", "partial", "not_useful") or len(comment) > 1500:
         return jsonify({"error": "Choose a rating and keep comments under 1500 characters."}), 400
-    if not save_test_record("tester_feedback", {
-        "search_id": search_id, "rating": rating, "comment": comment,
+    rating_score = {"useful": 5, "partial": 3, "not_useful": 1}[rating]
+    message = comment or {"useful": "Research was useful.", "partial": "Research was partly useful.", "not_useful": "Research was not useful."}[rating]
+    if not save_test_record("feedback", {
+        "category": "general",
+        "report_reference": search_id,
+        "rating": rating_score,
+        "message": message,
     }):
         return jsonify({"error": "Feedback storage is not configured or is temporarily unavailable. Please try later."}), 503
     return jsonify({"saved": True}), 201
