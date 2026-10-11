@@ -68,12 +68,16 @@ def save_test_record(table, entry):
         return False
     endpoint = base + "/rest/v1/" + table
     payload = json.dumps(entry, ensure_ascii=False).encode("utf-8")
-    req = Request(endpoint, data=payload, headers={
+    headers = {
         "apikey": key,
-        "Authorization": "Bearer " + key,
         "Content-Type": "application/json",
         "Prefer": "return=minimal",
-    }, method="POST")
+    }
+    # Modern Supabase sb_secret_ keys authenticate via apikey alone.
+    # Legacy service_role JWTs also require the Authorization header.
+    if not key.startswith("sb_secret_"):
+        headers["Authorization"] = "Bearer " + key
+    req = Request(endpoint, data=payload, headers=headers, method="POST")
     try:
         with urlopen(req, timeout=4) as response:
             return 200 <= response.status < 300
