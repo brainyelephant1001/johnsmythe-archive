@@ -356,13 +356,31 @@ Results are source discoveries, not independently verified findings.
 <div id="researchGuidance"></div>
 <div id="findings"></div>
 
+<section id="testerFeedback" class="panel hidden" style="margin-top:20px;padding:18px;background:#f8fafc" aria-label="Research feedback">
+<h3>Help improve John Smythe V1.0</h3>
+<p>Was this research useful? Optional feedback helps us improve the prototype.</p>
+<form id="feedbackForm">
+<label for="feedbackRating">Your assessment</label>
+<select id="feedbackRating" required style="width:100%;padding:10px;margin:8px 0">
+<option value="">Choose an option</option>
+<option value="useful">Useful</option>
+<option value="partial">Partly useful</option>
+<option value="not_useful">Not useful</option>
+</select>
+<label for="feedbackComment">What could be improved? (optional)</label>
+<textarea id="feedbackComment" maxlength="1500" rows="3" style="width:100%;padding:10px;margin:8px 0" placeholder="Suggestions, missing sources or problems..."></textarea>
+<p style="font-size:13px">Testing notice: We record research questions, search timings, result counts and any feedback you submit, without requesting your name or contact details. Avoid entering sensitive personal information. Records are used privately to improve this prototype; research results are not independently verified.</p>
+<button type="submit" id="feedbackSubmit">Send feedback</button>
+<p id="feedbackStatus" role="status"></p>
+</form>
+</section>
+
 <div class="actions">
 
-<button id="download" class="secondary" type="button">
-
-Download research brief
-
-</button>
+<button id="downloadWord" class="secondary" type="button">Download Word (.docx)</button>
+<button id="downloadPdf" class="secondary" type="button">Download PDF (.pdf)</button>
+<button id="downloadJson" class="secondary" type="button">Raw research data (.json)</button>
+<p id="exportStatus" role="status" aria-live="polite"></p>
 
 </div>
 
@@ -392,7 +410,7 @@ Download research brief
 
 <footer>
 
-John Smythe Research Engine — Local development version.
+John Smythe Research Engine — Public testing prototype V1.0.
 
 AI verification is not yet enabled.
 

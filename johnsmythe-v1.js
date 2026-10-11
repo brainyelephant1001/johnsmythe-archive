@@ -14,6 +14,7 @@ const searchButton = document.getElementById("searchButton");
 let currentQuestion = "";
 
 let currentReport = null;
+let currentSearchId = null;
 
 
 
@@ -1079,6 +1080,12 @@ form.addEventListener("submit", async event => {
 
 
   currentReport = null;
+  currentSearchId = null;
+  document.getElementById("testerFeedback").classList.add("hidden");
+  document.getElementById("feedbackStatus").textContent = "";
+  document.getElementById("feedbackForm").reset();
+  document.getElementById("feedbackSubmit").disabled = false;
+  document.getElementById("feedbackForm").querySelectorAll("select,textarea").forEach(el => el.disabled = false);
 
   searchButton.disabled = true;
   searchButton.textContent = "Researching…";
@@ -1128,6 +1135,8 @@ form.addEventListener("submit", async event => {
 
 
     currentReport = await response.json();
+    currentSearchId = currentReport.search_id || null;
+    if (currentSearchId) document.getElementById("testerFeedback").classList.remove("hidden");
 
 
 
@@ -1189,53 +1198,36 @@ form.addEventListener("submit", async event => {
 
 
 
-document.getElementById("download").addEventListener("click", () => {
-
-  if (!currentReport) return;
-
-
-
-  const content = [
-
-    "JOHN SMYTHE RESEARCH ENGINE",
-
-    "You ask. We investigate. You decide.",
-
-    "",
-
-    "Question: " + currentQuestion,
-
-    "Date: " + new Date().toLocaleString("en-GB"),
-
-    "",
-
-    "RESEARCH DATA",
-
-    JSON.stringify(currentReport, null, 2),
-
-    "",
-
-    "IMPORTANT: Sources have not been independently verified."
-
-  ].join("\n");
-
-
-
-  const blob = new Blob([content], {type:"text/plain;charset=utf-8"});
-
-  const url = URL.createObjectURL(blob);
-
-  const link = document.createElement("a");
-
-  link.href = url;
-
-  link.download = "john-smythe-research-brief.txt";
-
-  link.click();
-
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-
-});
+async function downloadReport(format) {
+  if (!currentReport) {
+    document.getElementById("exportStatus").textContent = "Run a search before downloading a report.";
+    return;
+  }
+  const status = document.getElementById("exportStatus");
+  status.textContent = "Preparing " + format.toUpperCase() + " download...";
+  try {
+    const response = await fetch("/api/export/" + format, {
+      method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(currentReport)
+    });
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({}));
+      throw new Error(error.error || "Export failed (" + response.status + ")");
+    }
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "john-smythe-research-brief." + format;
+    document.body.appendChild(link);
+    link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+    status.textContent = "Your " + format.toUpperCase() + " report is ready.";
+  } catch (error) { status.textContent = error.message; }
+}
+for (const [id, format] of [["downloadWord","docx"],["downloadPdf","pdf"],["downloadJson","json"]]) {
+  document.getElementById(id).addEventListener("click", () => downloadReport(format));
+}
 
 
 /*
@@ -1342,3 +1334,32 @@ function displayResearchTimeline(report) {
 
     findings.appendChild(section);
 }
+
+
+// Optional feedback is linked to an anonymous search ID.
+document.getElementById("feedbackForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  const status = document.getElementById("feedbackStatus");
+  const button = document.getElementById("feedbackSubmit");
+  if (!currentSearchId) { status.textContent = "Please run a search first."; return; }
+  button.disabled = true;
+  status.textContent = "Sending feedback…";
+  try {
+    const response = await fetch("/api/feedback", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        search_id: currentSearchId,
+        rating: document.getElementById("feedbackRating").value,
+        comment: document.getElementById("feedbackComment").value.trim()
+      })
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || "Feedback service unavailable");
+    status.textContent = "Thank you — your feedback was saved.";
+    document.getElementById("feedbackForm").querySelectorAll("select,textarea").forEach(el => el.disabled = true);
+  } catch (error) {
+    status.textContent = error.message + " (No feedback was saved.)";
+    button.disabled = false;
+  }
+});

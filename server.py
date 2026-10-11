@@ -21,8 +21,15 @@ from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
 from time import perf_counter
 from datetime import datetime, timezone
+from uuid import uuid4
+import os
+import json
+import logging
+from urllib.request import Request, urlopen
+from urllib.error import HTTPError, URLError
 
-from flask import Flask, jsonify, request, send_file
+from flask import Flask, jsonify, request, send_file, Response
+from report_export import word_report, pdf_report
 
 from analysis import ResearchAnalysis
 from sourcecheck import SourceCheck
@@ -49,6 +56,49 @@ BASE_DIR = Path(__file__).resolve().parent
 
 server = Flask(__name__)
 server.config["JSON_SORT_KEYS"] = False
+
+
+# Optional persistent tester records. Credentials live ONLY in Render environment.
+# No IP address, cookie, account, or browser fingerprint is recorded here.
+def save_test_record(table, entry):
+    base = os.getenv("SUPABASE_URL", "").strip().rstrip("/")
+    key = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "").strip()
+    if not base or not key:
+        logging.warning("TEST_LOG_UNSTORED %s", table)
+        return False
+    endpoint = base + "/rest/v1/" + table
+    payload = json.dumps(entry, ensure_ascii=False).encode("utf-8")
+    req = Request(endpoint, data=payload, headers={
+        "apikey": key,
+        "Authorization": "Bearer " + key,
+        "Content-Type": "application/json",
+        "Prefer": "return=minimal",
+    }, method="POST")
+    try:
+        with urlopen(req, timeout=4) as response:
+            return 200 <= response.status < 300
+    except (HTTPError, URLError, TimeoutError, OSError) as exc:
+        logging.error("Tester database write failed (%s): %s", table, exc)
+        return False
+
+
+@server.post("/api/feedback")
+def submit_feedback():
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict):
+        return jsonify({"error": "Invalid feedback request."}), 400
+    search_id = str(data.get("search_id", "")).strip()
+    rating = str(data.get("rating", "")).strip()
+    comment = str(data.get("comment", "")).strip()
+    if len(search_id) != 36 or any(c not in "0123456789abcdef-" for c in search_id.lower()):
+        return jsonify({"error": "Search ID is invalid."}), 400
+    if rating not in ("useful", "partial", "not_useful") or len(comment) > 1500:
+        return jsonify({"error": "Choose a rating and keep comments under 1500 characters."}), 400
+    if not save_test_record("tester_feedback", {
+        "search_id": search_id, "rating": rating, "comment": comment,
+    }):
+        return jsonify({"error": "Feedback storage is not configured or is temporarily unavailable. Please try later."}), 503
+    return jsonify({"saved": True}), 201
 
 
 @server.get("/")
@@ -101,6 +151,32 @@ def filter_source_records(records, date_range):
     )
 
 
+@server.post("/api/export/<format_name>")
+def export_report(format_name):
+    if format_name not in ("docx", "pdf", "json"):
+        return jsonify({"error": "Unsupported export format"}), 404
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict) or not isinstance(data.get("report"), dict):
+        return jsonify({"error": "Run a research search before downloading."}), 400
+    if len(request.get_data()) > 1500000:
+        return jsonify({"error": "Research data exceeds export size limit."}), 413
+    try:
+        if format_name == "docx":
+            content, mime = word_report(data), "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        elif format_name == "pdf":
+            content, mime = pdf_report(data), "application/pdf"
+        else:
+            content, mime = json.dumps(data, ensure_ascii=False, indent=2).encode("utf-8"), "application/json"
+    except Exception:
+        logging.exception("Report export failed")
+        return jsonify({"error": "Report export failed. Please retry."}), 500
+    return Response(content, mimetype=mime, headers={
+        "Content-Disposition": f'attachment; filename="john-smythe-research-brief.{format_name}"',
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff",
+    })
+
+
 @server.post("/api/research")
 def research():
 
@@ -123,6 +199,8 @@ def research():
             "error": "Question exceeds 500 characters."
         }), 400
 
+    test_search_id = str(uuid4())
+    test_started = perf_counter()
     print("\n" + "=" * 55)
     print("JOHN SMYTHE - NEW RESEARCH REQUEST")
     print("Question:", question)
@@ -355,7 +433,22 @@ def research():
     print("Date-excluded records:", date_review["excluded_count"])
     print("Undated records:", date_review["undated_count"])
 
+    # Log metadata only, without storing searches in Render's ephemeral filesystem.
+    # Failed persistent writes must never prevent a user from receiving results.
+    save_test_record("tester_searches", {
+        "id": test_search_id,
+        "question": question,
+        "duration_seconds": round(perf_counter() - test_started, 2),
+        "result_count": len(full_evidence),
+        "parliament_count": len(parliamentary_evidence),
+        "government_count": len(government_records),
+        "legislation_count": len(legislation_records),
+        "statistics_count": len(statistics_records),
+        "had_source_errors": bool(government_error or legislation_error or statistics_error),
+    })
+
     return jsonify({
+        "search_id": test_search_id,
         "question": question,
         "report": report,
         "source_plan": source_plan,
